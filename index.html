@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VendaFácil CRM</title>
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand"><div class="logo">VF</div><div><h1>VendaFácil</h1><p>CRM Comercial</p></div></div>
+      <nav>
+        <button class="nav active" data-screen="dashboard">Dashboard</button>
+        <button class="nav" data-screen="clientes">Clientes</button>
+        <button class="nav" data-screen="vendedores">Vendedores</button>
+        <button class="nav" data-screen="funil">Funil</button>
+        <button class="nav" data-screen="importar">Importar</button>
+        <button class="nav" data-screen="plano">Plano de ação</button>
+      </nav>
+      <div class="userbox"><strong>Gestor Comercial</strong><span>Autopeças • Goiás</span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><h2 id="screenTitle">Dashboard</h2><p id="subtitle">CRM carregado a partir da planilha Dashboard Comercial 2024–2026.</p></div>
+        <div class="topActions"><button id="installBtn" class="secondary hidden">Instalar App</button><button id="reloadDemo" class="secondary">Recarregar CRM</button></div>
+      </header>
+
+      <section id="dashboard" class="screen active">
+        <div class="cards">
+          <div class="metric"><span>Faturamento 2024</span><strong id="fat2024">R$ 0</strong></div>
+          <div class="metric"><span>Faturamento 2025</span><strong id="fat2025">R$ 0</strong></div>
+          <div class="metric"><span>Faturamento 2026</span><strong id="fat2026">R$ 0</strong></div>
+          <div class="metric dangerM"><span>Potencial recuperação</span><strong id="potencialTotal">R$ 0</strong></div>
+        </div>
+        <div class="cards smallcards">
+          <div class="metric"><span>Clientes em queda</span><strong id="clientesQueda">0</strong></div>
+          <div class="metric"><span>Clientes perdidos</span><strong id="clientesPerdidos">0</strong></div>
+          <div class="metric"><span>Clientes recuperados/novos</span><strong id="clientesNovos">0</strong></div>
+          <div class="metric"><span>Vendedores 2026</span><strong id="totalVendedores">0</strong></div>
+        </div>
+        <div class="grid2">
+          <div class="panel"><div class="panelHead"><h3>Evolução mensal</h3></div><canvas id="chartMensal" height="160"></canvas></div>
+          <div class="panel"><h3>Status da carteira</h3><div id="statusCards" class="statusGrid"></div></div>
+        </div>
+        <div class="grid2">
+          <div class="panel"><h3>Top quedas por potencial</h3><div id="topQueda"></div></div>
+          <div class="panel"><h3>Top crescimento</h3><div id="topCrescimento"></div></div>
+        </div>
+      </section>
+
+      <section id="clientes" class="screen">
+        <div class="panel"><div class="tableHead"><h3>Base de clientes</h3><input id="buscaClientes" placeholder="Buscar cliente, vendedor ou status"></div><div class="tableWrap"><table><thead><tr><th>Cliente</th><th>Vendedor</th><th>2024</th><th>2025</th><th>2026</th><th>Var. 26x25</th><th>Status</th><th>Potencial</th><th>Ação</th></tr></thead><tbody id="tbodyClientes"></tbody></table></div></div>
+      </section>
+
+      <section id="vendedores" class="screen">
+        <div class="panel"><div class="tableHead"><h3>Performance por vendedor</h3><input id="buscaVendedores" placeholder="Buscar vendedor"></div><div class="tableWrap"><table><thead><tr><th>Vendedor</th><th>2024</th><th>2025</th><th>2026</th><th>Var. 26x25</th><th>Clientes 2026</th><th>Ticket médio</th></tr></thead><tbody id="tbodyVendedores"></tbody></table></div></div>
+      </section>
+
+      <section id="funil" class="screen"><div class="kanban"><div class="col"><h3>Queda</h3><div id="kQueda"></div></div><div class="col"><h3>Perdido</h3><div id="kPerdido"></div></div><div class="col"><h3>Negociação</h3><div id="kNegociacao"></div></div><div class="col"><h3>Recuperado/Novo</h3><div id="kRecuperado"></div></div></div></section>
+
+      <section id="importar" class="screen">
+        <div class="panel importBox"><h3>Importar Excel do CRM</h3><p>Envie a planilha <b>.xlsx</b> com as abas Dashboard, Ranking_Clientes, Analise_Vendedores, Resumo_Mensal, Top_Queda e Top_Crescimento.</p><input type="file" id="xlsxFile" accept=".xlsx,.xls"><div class="buttonRow"><button id="btnLimpar" class="danger">Limpar dados salvos</button><button id="btnExportar" class="secondary">Exportar clientes CSV</button></div><p class="hint">O app salva os dados no navegador para funcionar offline. Para sincronização entre celulares, o próximo passo é conectar Supabase.</p></div>
+      </section>
+
+      <section id="plano" class="screen">
+        <div class="panel"><h3>Plano de ação automático</h3><div id="acoesPlano" class="actions"></div></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
