@@ -3,75 +3,597 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>VendaFácil CRM</title>
+  <title>AutoCRM - CRM Comercial para Autopeças</title>
   <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="CRM Comercial Profissional para Distribuidores de Autopeças">
   <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script defer src="app.js"></script>
 </head>
 <body>
   <div id="app">
-    <aside class="sidebar">
-      <div class="brand"><div class="logo">VF</div><div><h1>VendaFácil</h1><p>CRM Comercial</p></div></div>
-      <nav>
-        <button class="nav active" data-screen="dashboard">Dashboard</button>
-        <button class="nav" data-screen="clientes">Clientes</button>
-        <button class="nav" data-screen="vendedores">Vendedores</button>
-        <button class="nav" data-screen="funil">Funil</button>
-        <button class="nav" data-screen="importar">Importar</button>
-        <button class="nav" data-screen="plano">Plano de ação</button>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <h1>AutoCRM</h1>
+            <p>Distribuidor Autopeças</p>
+          </div>
+        </div>
+        <button class="sidebar-close" id="sidebarClose">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-screen="dashboard">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-screen="clientes">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Clientes
+        </button>
+        <button class="nav-item" data-screen="recuperacao">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          Recuperação
+        </button>
+        <button class="nav-item" data-screen="funil">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Funil Comercial
+        </button>
+        <button class="nav-item" data-screen="agenda">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Agenda de Visitas
+        </button>
+        <button class="nav-item" data-screen="ranking">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Ranking Vendedores
+        </button>
+        <button class="nav-item" data-screen="ia">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          IA Comercial
+        </button>
+        <button class="nav-item" data-screen="pedidos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Pedidos
+        </button>
       </nav>
-      <div class="userbox"><strong>Gestor Comercial</strong><span>Autopeças • Goiás</span></div>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="avatar">GM</div>
+          <div>
+            <strong>Gestor Comercial</strong>
+            <span>Distribuidora Goiás</span>
+          </div>
+        </div>
+        <button class="nav-item" data-screen="config">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+          Configurações
+        </button>
+      </div>
     </aside>
 
-    <main class="main">
+    <!-- MAIN -->
+    <div class="main-wrapper">
       <header class="topbar">
-        <div><h2 id="screenTitle">Dashboard</h2><p id="subtitle">CRM carregado a partir da planilha Dashboard Comercial 2024–2026.</p></div>
-        <div class="topActions"><button id="installBtn" class="secondary hidden">Instalar App</button><button id="reloadDemo" class="secondary">Recarregar CRM</button></div>
+        <button class="menu-toggle" id="menuToggle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-title">
+          <h2 id="pageTitle">Dashboard</h2>
+          <span id="pageSubtitle">Visão geral do negócio</span>
+        </div>
+        <div class="topbar-actions">
+          <div class="search-wrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="globalSearch" placeholder="Buscar cliente...">
+          </div>
+          <button class="btn btn-primary" id="btnNovoRegistro">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Novo
+          </button>
+          <button class="btn-icon" id="installBtn" style="display:none" title="Instalar App">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </button>
+        </div>
       </header>
 
-      <section id="dashboard" class="screen active">
-        <div class="cards">
-          <div class="metric"><span>Faturamento 2024</span><strong id="fat2024">R$ 0</strong></div>
-          <div class="metric"><span>Faturamento 2025</span><strong id="fat2025">R$ 0</strong></div>
-          <div class="metric"><span>Faturamento 2026</span><strong id="fat2026">R$ 0</strong></div>
-          <div class="metric dangerM"><span>Potencial recuperação</span><strong id="potencialTotal">R$ 0</strong></div>
-        </div>
-        <div class="cards smallcards">
-          <div class="metric"><span>Clientes em queda</span><strong id="clientesQueda">0</strong></div>
-          <div class="metric"><span>Clientes perdidos</span><strong id="clientesPerdidos">0</strong></div>
-          <div class="metric"><span>Clientes recuperados/novos</span><strong id="clientesNovos">0</strong></div>
-          <div class="metric"><span>Vendedores 2026</span><strong id="totalVendedores">0</strong></div>
-        </div>
-        <div class="grid2">
-          <div class="panel"><div class="panelHead"><h3>Evolução mensal</h3></div><canvas id="chartMensal" height="160"></canvas></div>
-          <div class="panel"><h3>Status da carteira</h3><div id="statusCards" class="statusGrid"></div></div>
-        </div>
-        <div class="grid2">
-          <div class="panel"><h3>Top quedas por potencial</h3><div id="topQueda"></div></div>
-          <div class="panel"><h3>Top crescimento</h3><div id="topCrescimento"></div></div>
-        </div>
-      </section>
+      <main class="content" id="mainContent">
 
-      <section id="clientes" class="screen">
-        <div class="panel"><div class="tableHead"><h3>Base de clientes</h3><input id="buscaClientes" placeholder="Buscar cliente, vendedor ou status"></div><div class="tableWrap"><table><thead><tr><th>Cliente</th><th>Vendedor</th><th>2024</th><th>2025</th><th>2026</th><th>Var. 26x25</th><th>Status</th><th>Potencial</th><th>Ação</th></tr></thead><tbody id="tbodyClientes"></tbody></table></div></div>
-      </section>
+        <!-- ===================== DASHBOARD ===================== -->
+        <section id="dashboard" class="screen active">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="kpi-body">
+                <span>Faturamento Mês Atual</span>
+                <strong id="kpiFatMes">R$ 0</strong>
+                <small id="kpiFatMesDiff" class="positive"></small>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+              <div class="kpi-body">
+                <span>Meta x Realizado</span>
+                <strong id="kpiMetaReal">0%</strong>
+                <small id="kpiMetaDiff"></small>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+              <div class="kpi-body">
+                <span>Clientes Ativos</span>
+                <strong id="kpiAtivos">0</strong>
+                <small id="kpiAtivosDiff"></small>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon red"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+              <div class="kpi-body">
+                <span>Clientes Inativos</span>
+                <strong id="kpiInativos">0</strong>
+                <small id="kpiInativosDiff" class="negative"></small>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon teal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+              <div class="kpi-body">
+                <span>Ticket Médio</span>
+                <strong id="kpiTicket">R$ 0</strong>
+                <small id="kpiTicketDiff"></small>
+              </div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-icon slate"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <div class="kpi-body">
+                <span>Crescimento vs Mês Ant.</span>
+                <strong id="kpiCrescimento">-</strong>
+                <small id="kpiCrescimentoDiff"></small>
+              </div>
+            </div>
+          </div>
 
-      <section id="vendedores" class="screen">
-        <div class="panel"><div class="tableHead"><h3>Performance por vendedor</h3><input id="buscaVendedores" placeholder="Buscar vendedor"></div><div class="tableWrap"><table><thead><tr><th>Vendedor</th><th>2024</th><th>2025</th><th>2026</th><th>Var. 26x25</th><th>Clientes 2026</th><th>Ticket médio</th></tr></thead><tbody id="tbodyVendedores"></tbody></table></div></div>
-      </section>
+          <div class="dash-grid">
+            <div class="card chart-card">
+              <div class="card-header">
+                <h3>Faturamento Mensal 2026</h3>
+                <div class="chart-legend">
+                  <span class="leg-dot blue"></span><span>2026</span>
+                </div>
+              </div>
+              <canvas id="chartFaturamento" height="220"></canvas>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Meta x Realizado por Vendedor</h3></div>
+              <div id="metaVendedores" class="meta-list"></div>
+            </div>
+          </div>
 
-      <section id="funil" class="screen"><div class="kanban"><div class="col"><h3>Queda</h3><div id="kQueda"></div></div><div class="col"><h3>Perdido</h3><div id="kPerdido"></div></div><div class="col"><h3>Negociação</h3><div id="kNegociacao"></div></div><div class="col"><h3>Recuperado/Novo</h3><div id="kRecuperado"></div></div></div></section>
+          <div class="dash-grid dash-grid-3">
+            <div class="card">
+              <div class="card-header"><h3>Top Clientes (Mês Atual)</h3></div>
+              <div id="topClientes" class="rank-list"></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Alertas de Risco</h3></div>
+              <div id="alertasRisco" class="alert-list"></div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Próximas Visitas</h3></div>
+              <div id="visitasSemana" class="visit-list"></div>
+            </div>
+          </div>
+        </section>
 
-      <section id="importar" class="screen">
-        <div class="panel importBox"><h3>Importar Excel do CRM</h3><p>Envie a planilha <b>.xlsx</b> com as abas Dashboard, Ranking_Clientes, Analise_Vendedores, Resumo_Mensal, Top_Queda e Top_Crescimento.</p><input type="file" id="xlsxFile" accept=".xlsx,.xls"><div class="buttonRow"><button id="btnLimpar" class="danger">Limpar dados salvos</button><button id="btnExportar" class="secondary">Exportar clientes CSV</button></div><p class="hint">O app salva os dados no navegador para funcionar offline. Para sincronização entre celulares, o próximo passo é conectar Supabase.</p></div>
-      </section>
+        <!-- ===================== CLIENTES ===================== -->
+        <section id="clientes" class="screen">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <input type="text" id="filtroClientes" placeholder="Buscar por nome, cidade, segmento...">
+              <select id="filtroVendedorClientes"><option value="">Todos os vendedores</option></select>
+              <select id="filtroSegmento">
+                <option value="">Todos os segmentos</option>
+                <option>Varejo</option><option>Atacado</option><option>Distribuidor</option><option>Oficina</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="btnAddCliente">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Novo Cliente
+            </button>
+          </div>
+          <div class="card table-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th><th>Cidade/UF</th><th>Segmento</th><th>Vendedor</th>
+                    <th>WhatsApp</th><th>Último Pedido</th><th>Score</th><th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyClientes"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-      <section id="plano" class="screen">
-        <div class="panel"><h3>Plano de ação automático</h3><div id="acoesPlano" class="actions"></div></div>
-      </section>
-    </main>
+        <!-- ===================== RECUPERAÇÃO ===================== -->
+        <section id="recuperacao" class="screen">
+          <div class="rec-tabs">
+            <button class="rec-tab active" data-days="30">Sem compras 30 dias</button>
+            <button class="rec-tab" data-days="60">60 dias</button>
+            <button class="rec-tab" data-days="90">90 dias</button>
+            <button class="rec-tab" data-days="120">120+ dias</button>
+          </div>
+          <div class="rec-summary" id="recSummary"></div>
+          <div class="card table-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Cliente</th><th>Vendedor</th><th>Cidade/UF</th><th>Dias sem compra</th><th>Último pedido</th><th>Faturado 12m</th><th>Score de Risco</th><th>Ações</th></tr>
+                </thead>
+                <tbody id="tbodyRecuperacao"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== FUNIL ===================== -->
+        <section id="funil" class="screen">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <select id="filtroVendedorFunil"><option value="">Todos os vendedores</option></select>
+            </div>
+            <button class="btn btn-primary" id="btnAddNegociacao">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nova Negociação
+            </button>
+          </div>
+          <div class="funil-stats" id="funilStats"></div>
+          <div class="kanban" id="kanban">
+            <div class="kanban-col" data-etapa="prospeccao">
+              <div class="kanban-header"><span class="kanban-dot slate"></span><h4>Prospecção</h4><span class="kanban-count" id="cnt-prospeccao">0</span></div>
+              <div class="kanban-cards" id="col-prospeccao"></div>
+            </div>
+            <div class="kanban-col" data-etapa="primeiro_contato">
+              <div class="kanban-header"><span class="kanban-dot blue"></span><h4>Primeiro Contato</h4><span class="kanban-count" id="cnt-primeiro_contato">0</span></div>
+              <div class="kanban-cards" id="col-primeiro_contato"></div>
+            </div>
+            <div class="kanban-col" data-etapa="negociacao">
+              <div class="kanban-header"><span class="kanban-dot amber"></span><h4>Negociação</h4><span class="kanban-count" id="cnt-negociacao">0</span></div>
+              <div class="kanban-cards" id="col-negociacao"></div>
+            </div>
+            <div class="kanban-col" data-etapa="proposta">
+              <div class="kanban-header"><span class="kanban-dot orange"></span><h4>Proposta</h4><span class="kanban-count" id="cnt-proposta">0</span></div>
+              <div class="kanban-cards" id="col-proposta"></div>
+            </div>
+            <div class="kanban-col" data-etapa="fechamento">
+              <div class="kanban-header"><span class="kanban-dot green"></span><h4>Fechamento</h4><span class="kanban-count" id="cnt-fechamento">0</span></div>
+              <div class="kanban-cards" id="col-fechamento"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== AGENDA ===================== -->
+        <section id="agenda" class="screen">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <button class="btn btn-ghost" id="prevMes">&lsaquo; Anterior</button>
+              <span id="mesAno" class="mes-label"></span>
+              <button class="btn btn-ghost" id="nextMes">Próximo &rsaquo;</button>
+            </div>
+            <button class="btn btn-primary" id="btnAddVisita">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Agendar Visita
+            </button>
+          </div>
+          <div class="agenda-layout">
+            <div class="card calendar-card">
+              <div id="calGrid"></div>
+            </div>
+            <div class="agenda-side">
+              <div class="card">
+                <div class="card-header"><h3 id="agendaDayTitle">Visitas de Hoje</h3></div>
+                <div id="agendaDayList" class="visit-list"></div>
+              </div>
+              <div class="card">
+                <div class="card-header"><h3>Próximas Visitas</h3></div>
+                <div id="proximasVisitas" class="visit-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== RANKING ===================== -->
+        <section id="ranking" class="screen">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <select id="rankingMes">
+                <option value="5">Maio 2026</option>
+                <option value="4">Abril 2026</option>
+                <option value="3">Março 2026</option>
+                <option value="2">Fevereiro 2026</option>
+                <option value="1">Janeiro 2026</option>
+              </select>
+            </div>
+          </div>
+          <div class="podium" id="podium"></div>
+          <div class="card table-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>#</th><th>Vendedor</th><th>Faturamento</th><th>Meta</th><th>% Meta</th><th>Clientes Ativos</th><th>Ticket Médio</th></tr>
+                </thead>
+                <tbody id="tbodyRanking"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== IA COMERCIAL ===================== -->
+        <section id="ia" class="screen">
+          <div class="ia-hero">
+            <div class="ia-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3>IA Comercial</h3>
+            <p>Análise inteligente da sua carteira com planos de ação automatizados para recuperação e crescimento.</p>
+            <button class="btn btn-primary btn-lg" id="btnGerarIA">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Gerar Análise Completa
+            </button>
+          </div>
+          <div id="iaContent" class="ia-content"></div>
+        </section>
+
+        <!-- ===================== PEDIDOS ===================== -->
+        <section id="pedidos" class="screen">
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <select id="filtroPedidoMes">
+                <option value="5">Maio 2026</option>
+                <option value="4">Abril 2026</option>
+                <option value="3">Março 2026</option>
+                <option value="2">Fevereiro 2026</option>
+                <option value="1">Janeiro 2026</option>
+                <option value="">Todos</option>
+              </select>
+              <select id="filtroPedidoVendedor"><option value="">Todos os vendedores</option></select>
+            </div>
+            <button class="btn btn-primary" id="btnAddPedido">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Novo Pedido
+            </button>
+          </div>
+          <div class="card table-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Data</th><th>Cliente</th><th>Vendedor</th><th>Valor</th><th>Descrição</th><th>Ações</th></tr>
+                </thead>
+                <tbody id="tbodyPedidos"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================== CONFIG ===================== -->
+        <section id="config" class="screen">
+          <div class="card config-card">
+            <h3>Configurações da Distribuidora</h3>
+            <div class="form-group"><label>Nome da Empresa</label><input type="text" id="cfgEmpresa" value="Distribuidora Goiás"></div>
+            <div class="form-row">
+              <div class="form-group"><label>CNPJ</label><input type="text" id="cfgCnpj" placeholder="00.000.000/0001-00"></div>
+              <div class="form-group"><label>Cidade / Estado</label><input type="text" id="cfgCidade" placeholder="Goiânia, GO"></div>
+            </div>
+          </div>
+          <div class="card config-card">
+            <div class="card-header">
+              <h3>Vendedores Cadastrados</h3>
+              <button class="btn btn-primary btn-sm" id="btnAddVendedor">+ Adicionar Vendedor</button>
+            </div>
+            <div id="vendedoresList" class="vendedores-list"></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
   </div>
+
+  <!-- ===================== MODALS ===================== -->
+
+  <div class="modal-overlay" id="modalCliente">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalClienteTitle">Novo Cliente</h3>
+        <button class="modal-close" data-modal="modalCliente">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="clienteId">
+        <div class="form-row">
+          <div class="form-group"><label>Nome do Cliente *</label><input type="text" id="clienteNome" placeholder="Razão Social"></div>
+          <div class="form-group"><label>CNPJ</label><input type="text" id="clienteCnpj" placeholder="00.000.000/0001-00"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Cidade</label><input type="text" id="clienteCidade" placeholder="Goiânia"></div>
+          <div class="form-group"><label>Estado</label><input type="text" id="clienteEstado" placeholder="GO" maxlength="2"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Segmento</label>
+            <select id="clienteSegmento"><option>Varejo</option><option>Atacado</option><option>Distribuidor</option><option>Oficina</option></select>
+          </div>
+          <div class="form-group"><label>Vendedor Responsável</label>
+            <select id="clienteVendedor"><option value="">Selecionar...</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Telefone</label><input type="text" id="clienteTelefone" placeholder="(62) 3333-0000"></div>
+          <div class="form-group"><label>WhatsApp</label><input type="text" id="clienteWhatsapp" placeholder="(62) 99999-0000"></div>
+        </div>
+        <div class="form-group"><label>E-mail</label><input type="email" id="clienteEmail" placeholder="email@empresa.com"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="modalCliente">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvarCliente">Salvar Cliente</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalNegociacao">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalNegociacaoTitle">Nova Negociação</h3>
+        <button class="modal-close" data-modal="modalNegociacao">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="negociacaoId">
+        <div class="form-row">
+          <div class="form-group"><label>Cliente *</label>
+            <select id="negociacaoCliente"><option value="">Selecionar...</option></select>
+          </div>
+          <div class="form-group"><label>Vendedor</label>
+            <select id="negociacaoVendedor"><option value="">Selecionar...</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Etapa</label>
+            <select id="negociacaoEtapa">
+              <option value="prospeccao">Prospecção</option>
+              <option value="primeiro_contato">Primeiro Contato</option>
+              <option value="negociacao">Negociação</option>
+              <option value="proposta">Proposta</option>
+              <option value="fechamento">Fechamento</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Valor Estimado (R$)</label>
+            <input type="number" id="negociacaoValor" placeholder="0" min="0">
+          </div>
+        </div>
+        <div class="form-group"><label>Observações</label>
+          <textarea id="negociacaoObs" rows="3" placeholder="Detalhes da negociação..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Próxima Ação</label>
+            <input type="text" id="negociacaoProxima" placeholder="Ex: Enviar proposta">
+          </div>
+          <div class="form-group"><label>Data Prevista</label>
+            <input type="date" id="negociacaoData">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="modalNegociacao">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvarNegociacao">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalVisita">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modalVisitaTitle">Agendar Visita</h3>
+        <button class="modal-close" data-modal="modalVisita">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="visitaId">
+        <div class="form-row">
+          <div class="form-group"><label>Cliente *</label>
+            <select id="visitaCliente"><option value="">Selecionar...</option></select>
+          </div>
+          <div class="form-group"><label>Vendedor</label>
+            <select id="visitaVendedor"><option value="">Selecionar...</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Data</label>
+            <input type="date" id="visitaData">
+          </div>
+          <div class="form-group"><label>Hora</label>
+            <input type="time" id="visitaHora" value="09:00">
+          </div>
+        </div>
+        <div class="form-group"><label>Observações</label>
+          <textarea id="visitaObs" rows="3" placeholder="Objetivo da visita..."></textarea>
+        </div>
+        <div class="form-group"><label>Próxima Ação</label>
+          <input type="text" id="visitaProxima" placeholder="Ex: Enviar catálogo">
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="visitaCheckin">
+            <span>Check-in realizado</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="modalVisita">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvarVisita">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalPedido">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Registrar Pedido</h3>
+        <button class="modal-close" data-modal="modalPedido">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="pedidoId">
+        <div class="form-row">
+          <div class="form-group"><label>Cliente *</label>
+            <select id="pedidoCliente"><option value="">Selecionar...</option></select>
+          </div>
+          <div class="form-group"><label>Valor (R$) *</label>
+            <input type="number" id="pedidoValor" placeholder="0" min="0" step="0.01">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Data do Pedido</label>
+            <input type="date" id="pedidoData">
+          </div>
+          <div class="form-group"><label>Descrição</label>
+            <input type="text" id="pedidoDesc" placeholder="Descrição opcional">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="modalPedido">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvarPedido">Salvar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalVendedor">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3 id="modalVendedorTitle">Novo Vendedor</h3>
+        <button class="modal-close" data-modal="modalVendedor">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="vendedorId">
+        <div class="form-group"><label>Nome *</label><input type="text" id="vendedorNome" placeholder="Nome completo"></div>
+        <div class="form-group"><label>E-mail</label><input type="email" id="vendedorEmail" placeholder="email@empresa.com"></div>
+        <div class="form-group"><label>Telefone</label><input type="text" id="vendedorTel" placeholder="(62) 99999-0000"></div>
+        <div class="form-group"><label>Meta Mensal (R$)</label><input type="number" id="vendedorMeta" placeholder="0" min="0"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost" data-modal="modalVendedor">Cancelar</button>
+        <button class="btn btn-primary" id="btnSalvarVendedor">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

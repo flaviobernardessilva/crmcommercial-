@@ -1,1 +1,14 @@
-{"name":"VendaFácil CRM Comercial","short_name":"VendaFácil","start_url":"./index.html","display":"standalone","background_color":"#0f172a","theme_color":"#0f172a","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml"}]}
+{
+  "name": "AutoCRM - CRM para Autopeças",
+  "short_name": "AutoCRM",
+  "description": "CRM Comercial Profissional para Distribuidores de Autopeças",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity"],
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
